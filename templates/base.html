@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ site_url }}{{ path }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ site_url }}{{ path }}">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Serif:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}static/style.css">
+{% for block in schema %}<script type="application/ld+json">{{ block | tojson }}</script>
+{% endfor %}
+</head>
+<body>
+<header class="site"><a href="{{ root }}" class="brand">Molar Mass Pages</a></header>
+<main>
+{% if crumbs %}<nav class="crumbs" aria-label="Breadcrumb">{% for c in crumbs %}{% if not loop.last %}<a href="{{ root }}{{ c.href }}">{{ c.name }}</a> / {% else %}<span aria-current="page">{{ c.name }}</span>{% endif %}{% endfor %}</nav>{% endif %}
+{% block content %}{% endblock %}
+</main>
+<footer class="site">Atomic weights: IUPAC standard values (abridged). Built with Python and Jinja2 as a programmatic SEO project.</footer>
+</body>
+</html>

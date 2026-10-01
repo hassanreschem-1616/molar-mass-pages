@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Molar mass of {{ c.name }} ({{ c.pretty | safe }})</h1>
+<p class="answer">The molar mass of {{ c.name | lower if c.lower_ok else c.name }} ({{ c.pretty | safe }}) is <strong>{{ "%.3f" | format(c.mm) }} g/mol</strong>.</p>
+
+<div class="tiles" aria-label="Elements in {{ c.formula }}">
+{% for r in c.rows %}<a class="tile" href="{{ root }}element/{{ r.symbol | lower }}/"><span class="n">×{{ r.count }}</span><span class="sym">{{ r.symbol }}</span><span class="nm">{{ r.name }}</span><span class="am">{{ "%.3f" | format(r.atomic_mass) }}</span></a>{% endfor %}
+</div>
+
+<h2>How to calculate it</h2>
+<p>Multiply each element's atomic mass by the number of its atoms in {{ c.pretty | safe }}, then add the results. {{ c.name }} has {{ c.atoms }} atoms from {{ c.rows | length }} element{{ 's' if c.rows | length > 1 }}.</p>
+<div class="scroll"><table>
+<thead><tr><th>Element</th><th>Atoms</th><th>Atomic mass (g/mol)</th><th>Subtotal (g/mol)</th></tr></thead>
+<tbody>
+{% for r in c.rows %}<tr><td>{{ r.name }} ({{ r.symbol }})</td><td>{{ r.count }}</td><td>{{ "%.3f" | format(r.atomic_mass) }}</td><td>{{ "%.3f" | format(r.subtotal) }}</td></tr>
+{% endfor %}
+</tbody>
+<tfoot><tr><td colspan="3">Molar mass</td><td>{{ "%.3f" | format(c.mm) }}</td></tr></tfoot>
+</table></div>
+<p class="sum">{{ c.equation }} = {{ "%.3f" | format(c.mm) }} g/mol</p>
+
+<h2>Mass composition</h2>
+<p>By mass, {{ c.name | lower if c.lower_ok else c.name }} is {{ "%.1f" | format(c.top.percent) }}% {{ c.top.name | lower }}{% if c.rows | length > 1 %}, its heaviest share{% endif %}.</p>
+<ul class="bars">
+{% for r in c.rows_by_pct %}<li><span class="lbl">{{ r.symbol }}</span><span class="bar"><span style="width: {{ '%.1f' | format(r.percent) }}%"></span></span><span class="pct">{{ "%.2f" | format(r.percent) }}%</span></li>
+{% endfor %}
+</ul>
+
+<h2>What it is used for</h2>
+<p>{{ c.use }}</p>
+
+<h2>Worked examples</h2>
+{% for q in c.faqs %}<h3>{{ q.q }}</h3><p>{{ q.a }}</p>
+{% endfor %}
+
+<h2>Related compounds</h2>
+<ul class="links">
+{% for r in c.related %}<li><a href="{{ root }}{{ r.slug }}/">{{ r.name }} ({{ r.pretty | safe }})</a> — {{ "%.2f" | format(r.mm) }} g/mol</li>
+{% endfor %}
+</ul>
+<p class="more">More in <a href="{{ root }}category/{{ c.cat_slug }}/">{{ c.category }}</a>.</p>
+{% endblock %}

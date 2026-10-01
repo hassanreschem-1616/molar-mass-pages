@@ -1,0 +1,68 @@
+:root {
+  --paper: #f7f9fa;
+  --ink: #1c2630;
+  --muted: #5b6875;
+  --rule: #d5dde3;
+  --tile: #e3eef6;
+  --tile-edge: #2e5e8c;
+  --bar: #3f8f7a;
+  --link: #24578a;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141b21; --ink: #e4eaee; --muted: #9aa8b3; --rule: #2c3842;
+    --tile: #1d2c3a; --tile-edge: #6fa3d4; --bar: #5fb59c; --link: #8cbbe8;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 1.0625rem/1.6 "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+main, header.site, footer.site { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
+header.site { padding-top: 1.25rem; }
+.brand { color: var(--ink); font-weight: 600; text-decoration: none; }
+footer.site { color: var(--muted); font-size: .875rem; padding-block: 3rem 2rem; border-top: 1px solid var(--rule); margin-top: 3rem; }
+a { color: var(--link); }
+a:focus-visible { outline: 2px solid var(--tile-edge); outline-offset: 2px; }
+.crumbs { font-size: .875rem; color: var(--muted); margin-top: 1.5rem; }
+h1 { font: 600 clamp(1.75rem, 4vw, 2.4rem)/1.15 "IBM Plex Serif", Georgia, serif; margin: .75rem 0 .5rem; }
+h2 { font: 600 1.35rem/1.3 "IBM Plex Serif", Georgia, serif; margin: 2.25rem 0 .5rem; }
+h3 { font-size: 1.0625rem; margin: 1.25rem 0 .25rem; }
+.answer { font-size: 1.2rem; }
+sub { font-size: .7em; line-height: 0; }
+
+/* The signature: the formula laid out as periodic-table tiles */
+.tiles { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.5rem 0; }
+.tile {
+  position: relative; display: grid; grid-template-rows: auto 1fr auto auto;
+  width: 6rem; height: 6.5rem; padding: .4rem .5rem; text-decoration: none; color: var(--ink);
+  background: var(--tile); border: 2px solid var(--tile-edge); border-radius: 3px;
+}
+.tile:hover { background: var(--paper); }
+.tile .n { font-size: .8rem; font-weight: 600; color: var(--tile-edge); justify-self: end; }
+.tile .sym { font: 600 2rem/1 "IBM Plex Serif", Georgia, serif; align-self: center; }
+.tile .nm { font-size: .72rem; }
+.tile .am { font-size: .72rem; color: var(--muted); }
+
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--muted); font-size: .85rem; }
+td:nth-child(n+2), th:nth-child(n+2) { text-align: right; }
+tfoot td { font-weight: 600; border-bottom: 0; }
+.sum { color: var(--muted); font-size: .95rem; overflow-wrap: anywhere; }
+
+.bars { list-style: none; padding: 0; margin: 1rem 0; }
+.bars li { display: grid; grid-template-columns: 2.5rem 1fr 4.5rem; gap: .75rem; align-items: center; margin: .35rem 0; }
+.bars .lbl { font-weight: 600; }
+.bars .bar { height: .7rem; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.bars .bar span { display: block; height: 100%; background: var(--bar); }
+.bars .pct { text-align: right; font-size: .95rem; }
+
+.links { padding-left: 1.1rem; }
+.links li { margin: .3rem 0; }
+.links.inline { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; }
+.more { margin-top: 1rem; }
