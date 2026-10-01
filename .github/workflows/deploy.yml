@@ -27,6 +27,8 @@ jobs:
         env:
           SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
         run: python src/build.py
+      - name: Add Google Search Console verification
+        run: cp google05349eb8f7ee20fd.html dist/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
